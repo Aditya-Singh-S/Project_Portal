@@ -3,6 +3,9 @@ package com.cts.auth.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,9 @@ public class AuthServiceImpl implements AuthService {
 	private PasswordEncoder encoder;
 	
 	@Autowired
+	private AuthenticationManager authManager;
+	
+	@Autowired
 	public AuthServiceImpl(UserRepository userRepository) {
 		this.userRepo = userRepository;
 	}
@@ -33,15 +39,18 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public String login(String email, String password) {
-		User user = userRepo.findByEmail(email);
+		//User user = userRepo.findByEmail(email);
 		
-		//String encodedPassword = encoder.encode(password);
-		//System.out.println(encodedPassword);
-		System.out.println(user.getPassword());
+//		if(encoder.matches(password, user.getPassword())) {
+//			return "Login succesfull";
+//		}
 		
-		if(encoder.matches(password, user.getPassword())) {
-			return "Login succesfull";
-		}
+		Authentication authentication = authManager
+				.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+		
+		if(authentication.isAuthenticated()) {
+			return "Login Succesfull";
+		} 
 		
 		return "Password not correct";
 	}
