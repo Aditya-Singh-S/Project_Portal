@@ -16,12 +16,16 @@ public class AuthServiceImpl implements AuthService {
 	private UserRepository userRepo;
 	
 	@Autowired
+	private PasswordEncoder encoder;
+	
+	@Autowired
 	public AuthServiceImpl(UserRepository userRepository) {
 		this.userRepo = userRepository;
 	}
 	
 	@Override
 	public String register(User user) {
+		user.setPassword(encoder.encode(user.getPassword()));
 		userRepo.save(user);
 		verify(user);
 		return "User registered succesfully";
