@@ -35,7 +35,11 @@ public class AuthServiceImpl implements AuthService {
 	public String login(String email, String password) {
 		User user = userRepo.findByEmail(email);
 		
-		if(user.getPassword().equals(password)) {
+		//String encodedPassword = encoder.encode(password);
+		//System.out.println(encodedPassword);
+		System.out.println(user.getPassword());
+		
+		if(encoder.matches(password, user.getPassword())) {
 			return "Login succesfull";
 		}
 		
@@ -46,13 +50,21 @@ public class AuthServiceImpl implements AuthService {
 	public String resetPassword(String email, String oldPassword, String newPassword) {
 		User user = userRepo.findByEmail(email);
 		
-		if(user.getPassword().equals(oldPassword)) {
-			user.setPassword(newPassword);
+		if(encoder.matches(oldPassword, user.getPassword())) {
+			user.setPassword(encoder.encode(newPassword));
 			userRepo.save(user);
 			return "Password changed succesfully";
 		} else {
 			return "Password didn't match";
 		}
+		
+//		if(user.getPassword().equals(oldPassword)) {
+//			user.setPassword(newPassword);
+//			userRepo.save(user);
+//			return "Password changed succesfully";
+//		} else {
+//			return "Password didn't match";
+//		}
 
 	}
 
