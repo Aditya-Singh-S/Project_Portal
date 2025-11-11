@@ -24,22 +24,24 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtService {
 	
-	private String secretKey = "4r3YXZ12brt21eaVSNhH9ML1mCheI5OLKhAo7IMGMeV";
+	private String secretKey;
+	//= "4r3YXZ12brt21eaVSNhH9ML1mCheI5OLKhAo7IMGMeV";
 	
-//	public JwtService() {
-//		secretKey = generateSecretKey();
-//	}
-//	
-//	public String generateSecretKey() { 
-//		try { 
-//			KeyGenerator keyGen = KeyGenerator.getInstance("HmacSHA256"); 
-//			SecretKey secretKey = keyGen.generateKey(); 
-//			System.out.println("Secret Key : " + secretKey.toString()); 
-//			return Base64.getEncoder().encodeToString(secretKey.getEncoded()); 
-//		} catch (NoSuchAlgorithmException e) { 
-//			throw new RuntimeException("Error generating secret key", e); 
-//		}
-//	}
+	
+	public JwtService() {
+		secretKey = generateSecretKey();
+	}
+	
+	public String generateSecretKey() { 
+		try { 
+			KeyGenerator keyGen = KeyGenerator.getInstance("HmacSHA256"); 
+			SecretKey secretKey = keyGen.generateKey(); 
+			System.out.println("Secret Key : " + secretKey.toString()); 
+			return Base64.getEncoder().encodeToString(secretKey.getEncoded()); 
+		} catch (NoSuchAlgorithmException e) { 
+			throw new RuntimeException("Error generating secret key", e); 
+		}
+	}
 
 	public String generateToken(String email, UserRole role) {
 		
