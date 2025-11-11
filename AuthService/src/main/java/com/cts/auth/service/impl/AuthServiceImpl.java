@@ -3,12 +3,16 @@ package com.cts.auth.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cts.auth.entity.User;
 import com.cts.auth.repository.UserRepository;
 import com.cts.auth.service.AuthService;
+import com.cts.auth.service.JwtService;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -17,6 +21,12 @@ public class AuthServiceImpl implements AuthService {
 	
 	@Autowired
 	private PasswordEncoder encoder;
+	
+	@Autowired
+	private JwtService jwtService;
+	
+	@Autowired
+	private AuthenticationManager authManager;
 	
 	@Autowired
 	public AuthServiceImpl(UserRepository userRepository) {
@@ -33,15 +43,20 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public String login(String email, String password) {
+		//User user = userRepo.findByEmail(email);
+		
+//		if(encoder.matches(password, user.getPassword())) {
+//			return "Login succesfull";
+//		}
+		
+		Authentication authentication = authManager
+				.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+		
 		User user = userRepo.findByEmail(email);
 		
-		//String encodedPassword = encoder.encode(password);
-		//System.out.println(encodedPassword);
-		System.out.println(user.getPassword());
-		
-		if(encoder.matches(password, user.getPassword())) {
-			return "Login succesfull";
-		}
+		if(authentication.isAuthenticated()) {
+			return jwtService.generateToken(user.getEmail(), user.getRole());
+		} 
 		
 		return "Password not correct";
 	}
