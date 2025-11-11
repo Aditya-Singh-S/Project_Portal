@@ -32,7 +32,7 @@ public class AuthController {
 		return ResponseEntity.ok(response);
 	}
 	
-	@GetMapping("/login")
+	@PostMapping("/login")
 	public ResponseEntity<String> loginUser(@RequestParam("email") String email, @RequestParam("password") String password) {
 		String response = authService.login(email, password);
 		return ResponseEntity.ok(response);

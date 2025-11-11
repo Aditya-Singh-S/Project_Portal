@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.cts.auth.entity.User;
 import com.cts.auth.repository.UserRepository;
 import com.cts.auth.service.AuthService;
+import com.cts.auth.service.JwtService;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -20,6 +21,9 @@ public class AuthServiceImpl implements AuthService {
 	
 	@Autowired
 	private PasswordEncoder encoder;
+	
+	@Autowired
+	private JwtService jwtService;
 	
 	@Autowired
 	private AuthenticationManager authManager;
@@ -48,8 +52,10 @@ public class AuthServiceImpl implements AuthService {
 		Authentication authentication = authManager
 				.authenticate(new UsernamePasswordAuthenticationToken(email, password));
 		
+		User user = userRepo.findByEmail(email);
+		
 		if(authentication.isAuthenticated()) {
-			return "Login Succesfull";
+			return jwtService.generateToken(user.getEmail(), user.getRole());
 		} 
 		
 		return "Password not correct";
