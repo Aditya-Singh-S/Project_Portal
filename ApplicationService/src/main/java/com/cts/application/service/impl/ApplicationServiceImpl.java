@@ -1,0 +1,53 @@
+package com.cts.application.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cts.application.entity.Application;
+import com.cts.application.repository.ApplicationRepository;
+import com.cts.application.service.ApplicationService;
+
+@Service
+public class ApplicationServiceImpl implements ApplicationService {
+	
+	private ApplicationRepository applicationRepo;
+	
+	@Autowired
+	public ApplicationServiceImpl(ApplicationRepository applicationRepo) {
+		this.applicationRepo = applicationRepo;
+	}
+
+	@Override
+	public Application addApplication(Application application) {
+		return applicationRepo.save(application);
+	}
+
+	@Override
+	public String approveApplication(int id) {
+		Application application = applicationRepo.findById(id).get();
+		application.setStatus("APPROVED");
+		applicationRepo.save(application);
+		return "Application Approved";
+	}
+
+	@Override
+	public String denyApplication(int id) {
+		Application application = applicationRepo.findById(id).get();
+		application.setStatus("REJECTED");
+		applicationRepo.save(application);
+		return "Application Rejected";
+	}
+
+	@Override
+	public List<Application> viewAllApplication() {
+		return applicationRepo.findAll();
+	}
+
+	@Override
+	public Application viewApplication(int id) {
+		return applicationRepo.findById(id).get();
+	}
+
+}
