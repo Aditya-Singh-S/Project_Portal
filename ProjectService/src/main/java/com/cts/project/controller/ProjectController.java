@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.project.dto.ProjectDTO;
@@ -56,5 +57,13 @@ public class ProjectController {
 	public ResponseEntity<List<Project>> viewAllProjects(){
 		List<Project> response = projectService.viewAllProject();
 		return ResponseEntity.ok(response);
+	}
+	
+	
+	//Department -> Project WorkFlow
+	@GetMapping("/getProjects")
+	public ResponseEntity<List<Project>> getEmployees(@RequestParam int deptid){
+		List<Project> deptProjects = projectService.getDeptProjects(deptid);
+		return ResponseEntity.ok(deptProjects);
 	}
 }
