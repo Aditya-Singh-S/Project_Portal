@@ -15,7 +15,7 @@ public class TestController {
 	@Autowired
 	JwtService jwtService;
 	
-	@PreAuthorize("hasRole('HR')")
+	@PreAuthorize("hasAuthority('HR')")
 	@PostMapping("/validate")
 	public String validateToken(@RequestParam String token) {
 		System.out.println(jwtService.extractRole(token));

@@ -4,12 +4,10 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -26,9 +24,6 @@ public class JwtFilter extends OncePerRequestFilter {
 	
 	@Autowired
 	JwtService jwtService;
-	
-//	@Autowired
-//	ApplicationContext context;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -47,7 +42,6 @@ public class JwtFilter extends OncePerRequestFilter {
 			
 			if(jwtService.validate(token)) {
 				String role = jwtService.extractRole(token);
-				//String authorities = "[ROLE_"+role+";
 				
 				List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(role));
 				UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, null, authorities);
