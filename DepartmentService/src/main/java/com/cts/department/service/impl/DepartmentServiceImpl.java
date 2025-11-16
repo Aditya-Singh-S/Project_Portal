@@ -46,4 +46,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 		return deptRepo.findAll();
 	}
 
+	@Override
+	public Department viewDetails(int deptid) {
+		return deptRepo.findById(deptid).orElseThrow(() -> new RuntimeException("Department not found"));
+	}
+
 }

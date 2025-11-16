@@ -15,4 +15,6 @@ public interface DepartmentService {
 	public void deleteDept(int id);
 	
 	public List<Department> viewAllDept();
+	
+	public Department viewDetails(int deptid);
 }

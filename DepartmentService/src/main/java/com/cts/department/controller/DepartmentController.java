@@ -54,4 +54,10 @@ public class DepartmentController {
 		return deptService.viewAllDept();
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<Department> viewById(@PathVariable("id") int deptid) {
+		Department response = deptService.viewDetails(deptid);
+		return ResponseEntity.ok(response);
+	}
+	
 }
