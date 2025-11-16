@@ -75,5 +75,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return emp;
 	}
 
+	@Override
+	public List<Employee> getDeptEmployees(int deptid) {
+		List<Employee> emp = employeeRepo.findByDeptid(deptid);
+		return emp;
+	}
+
 
 }

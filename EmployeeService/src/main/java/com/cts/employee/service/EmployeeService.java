@@ -17,4 +17,6 @@ public interface EmployeeService {
 	Employee hrUpdateEmployee(int id, HRUpdateDTO hrUpdateDTO);
 	
 	List<Employee> viewAllEmployees();
+
+	List<Employee> getDeptEmployees(int deptid);
 }

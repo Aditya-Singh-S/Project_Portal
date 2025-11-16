@@ -55,4 +55,11 @@ public class EmployeeController {
 		List<Employee> employees = employeeService.viewAllEmployees();
 		return ResponseEntity.ok(employees);
 	}
+	
+	//Department -> Employee WorkFlow
+	@GetMapping("/getEmployees")
+	public ResponseEntity<List<Employee>> getEmployees(@RequestParam int deptid){
+		List<Employee> deptEmployees = employeeService.getDeptEmployees(deptid);
+		return ResponseEntity.ok(deptEmployees);
+	}
 }

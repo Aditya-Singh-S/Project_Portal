@@ -6,9 +6,9 @@ import com.cts.application.entity.Application;
 
 public interface ApplicationService {
 	
-	Application addApplication(Application application);
+	Application addApplication(int empid, int projectid);
 	
-	String approveApplication(int id);
+	String approveApplication(int id, String feedback);
 	
 	String denyApplication(int id);
 	

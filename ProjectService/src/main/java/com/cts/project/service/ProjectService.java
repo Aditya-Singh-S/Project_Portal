@@ -16,6 +16,8 @@ public interface ProjectService {
 	String deleteProject(int id);
 	
 	List<Project> viewAllProject();
+
+	List<Project> getDeptProjects(int deptid);
 	
 	
 }

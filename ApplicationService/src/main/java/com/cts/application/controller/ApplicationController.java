@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.application.entity.Application;
+import com.cts.application.service.AllotmentService;
 import com.cts.application.service.ApplicationService;
 
 @RestController
@@ -26,15 +28,9 @@ public class ApplicationController {
 		this.applicationService = applicationService;
 	}
 	
-	@PostMapping
-	public ResponseEntity<Application> addApplication(@RequestBody Application application){
-		Application response = applicationService.addApplication(application);
-		return ResponseEntity.ok(response);
-	}
-	
 	@PutMapping("/{id}/approve")
-	public ResponseEntity<String> approveApplication(@PathVariable("id") int id){
-		String response = applicationService.approveApplication(id);
+	public ResponseEntity<String> approveApplication(@PathVariable("id") int id, @RequestParam String feedback){
+		String response = applicationService.approveApplication(id, feedback);
 		return ResponseEntity.ok(response);
 	}
 	
@@ -53,6 +49,14 @@ public class ApplicationController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Application> viewApplication(@PathVariable("id") int id){
 		Application response = applicationService.viewApplication(id);
+		return ResponseEntity.ok(response);
+	}
+	
+	
+	//Project -> Application Workflow
+	@PostMapping
+	public ResponseEntity<Application> addApplication(@RequestParam int empid, @RequestParam int projectid){
+		Application response = applicationService.addApplication(empid, projectid);
 		return ResponseEntity.ok(response);
 	}
 }

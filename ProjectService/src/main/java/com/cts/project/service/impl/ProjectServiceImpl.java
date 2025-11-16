@@ -56,4 +56,9 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectRepo.findAll();
 	}
 
+	@Override
+	public List<Project> getDeptProjects(int deptid) {
+		return projectRepo.findByDeptid(deptid);
+	}
+
 }
