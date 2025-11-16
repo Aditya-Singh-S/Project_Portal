@@ -68,7 +68,7 @@ public class DepartmentController {
 	
 	//Only HR
 	//calling EmployeeService for employees list
-	@GetMapping("/viewEmployees")
+	@GetMapping("/viewProjects")
 	public ResponseEntity<Project> viewProjects(@RequestParam int deptid){
 		return null;
 	}
