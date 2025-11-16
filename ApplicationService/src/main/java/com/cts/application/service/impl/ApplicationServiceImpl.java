@@ -20,7 +20,10 @@ public class ApplicationServiceImpl implements ApplicationService {
 	}
 
 	@Override
-	public Application addApplication(Application application) {
+	public Application addApplication(int empid, int projectid) {
+		Application application = new Application();
+		application.setEmpid(empid);
+		application.setProjectid(projectid);
 		return applicationRepo.save(application);
 	}
 
