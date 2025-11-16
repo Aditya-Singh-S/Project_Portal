@@ -22,6 +22,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 	
 	public void addDept(Department dept) {
+		dept.setDeptname(dept.getServiceline() + " " + dept.getDomain());
 		deptRepo.save(dept);
 	}
 
@@ -29,8 +30,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public String updateDept(int id, Department dept) throws Exception {
 		Department toUpdate = deptRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("Employee not found"));
 		toUpdate.setServiceline(dept.getServiceline());
-		toUpdate.setVerticalline(dept.getVerticalline());
-		
+		toUpdate.setDomain(dept.getDomain());
+		toUpdate.setDeptname(dept.getServiceline() + " " + dept.getDomain());
 		deptRepo.save(toUpdate);
 		return "Department Updated succesfully";
 	}
