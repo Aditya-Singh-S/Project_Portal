@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.application.entity.Application;
+import com.cts.application.service.AllotmentService;
 import com.cts.application.service.ApplicationService;
 
 @RestController
@@ -28,8 +29,8 @@ public class ApplicationController {
 	}
 	
 	@PutMapping("/{id}/approve")
-	public ResponseEntity<String> approveApplication(@PathVariable("id") int id){
-		String response = applicationService.approveApplication(id);
+	public ResponseEntity<String> approveApplication(@PathVariable("id") int id, @RequestParam String feedback){
+		String response = applicationService.approveApplication(id, feedback);
 		return ResponseEntity.ok(response);
 	}
 	

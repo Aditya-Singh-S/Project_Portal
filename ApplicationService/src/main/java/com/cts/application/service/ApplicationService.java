@@ -8,7 +8,7 @@ public interface ApplicationService {
 	
 	Application addApplication(int empid, int projectid);
 	
-	String approveApplication(int id);
+	String approveApplication(int id, String feedback);
 	
 	String denyApplication(int id);
 	
