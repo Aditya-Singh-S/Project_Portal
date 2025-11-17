@@ -34,11 +34,11 @@ public class AuthServiceImpl implements AuthService {
 	}
 	
 	@Override
-	public String register(User user) {
+	public User register(User user) {
 		user.setPassword(encoder.encode(user.getPassword()));
 		userRepo.save(user);
 		verify(user);
-		return "User registered succesfully";
+		return user;
 	}
 
 	@Override
