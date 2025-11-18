@@ -1,16 +1,17 @@
-package com.cts.department.dto;
+package com.cts.application.dto;
 
 import java.time.LocalDate;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class Employee {
-	
+@AllArgsConstructor
+@NoArgsConstructor
+public class EmployeeResponse {
+
 	private int empid;
 	
 	private String firstname;
@@ -21,9 +22,13 @@ public class Employee {
 	
 	private String designation;
 	
+	private int managerid;
+	
+	private String managername;
+	
 	private int deptid;
 	
-	private int managerid;
+	private String deptname;
 	
 	private String contactno;
 	
@@ -38,4 +43,5 @@ public class Employee {
 	private String resumepath;
 	
 	private boolean isactive;
+
 }

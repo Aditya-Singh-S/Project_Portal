@@ -12,12 +12,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cts.auth.client.EmployeeClient;
+import com.cts.auth.dto.EmployeeDTO;
 import com.cts.auth.entity.User;
+import com.cts.auth.enums.UserRole;
 import com.cts.auth.service.AuthService;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+	
+	@Autowired
+	private EmployeeClient empClient;
 	
 	private AuthService authService;
 	
@@ -28,7 +34,16 @@ public class AuthController {
 	
 	@PostMapping("/register")
 	public ResponseEntity<String> registerUser(@RequestBody User user){
-		String response = authService.register(user);
+		User newUser = authService.register(user);
+		
+		EmployeeDTO emp = new EmployeeDTO();
+		emp.setEmpid(newUser.getId());
+		emp.setEmail(newUser.getEmail());
+		emp.setRole(newUser.getRole());
+		emp.setIsactive(true);
+		
+		String response = empClient.addEmployee(emp).getBody();
+		
 		return ResponseEntity.ok(response);
 	}
 	

@@ -11,11 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cts.department.dto.Employee;
-import com.cts.department.dto.Project;
 import com.cts.department.entity.Department;
 import com.cts.department.service.DepartmentService;
 
@@ -57,20 +54,10 @@ public class DepartmentController {
 		return deptService.viewAllDept();
 	}
 	
-	
-	//Only HR
-	//calling EmployeeService for employees list
-	@GetMapping("/viewEmployees")
-	public ResponseEntity<Employee> viewEmployee(@RequestParam int deptid){
-		return null;
-	}
-	
-	
-	//Only HR
-	//calling EmployeeService for employees list
-	@GetMapping("/viewProjects")
-	public ResponseEntity<Project> viewProjects(@RequestParam int deptid){
-		return null;
+	@GetMapping("/{id}")
+	public ResponseEntity<Department> viewById(@PathVariable("id") int deptid) {
+		Department response = deptService.viewDetails(deptid);
+		return ResponseEntity.ok(response);
 	}
 	
 }

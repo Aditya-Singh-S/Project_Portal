@@ -56,8 +56,13 @@ public class ApplicationServiceImpl implements ApplicationService {
 	}
 
 	@Override
-	public Application viewApplication(int id) {
-		return applicationRepo.findById(id).get();
+	public Application viewApplication(int applicationid) {
+		return applicationRepo.findById(applicationid).get();
+	}
+
+	@Override
+	public List<Application> viewProjectApplication(int projectid) {
+		return applicationRepo.findByProjectid(projectid);
 	}
 
 }

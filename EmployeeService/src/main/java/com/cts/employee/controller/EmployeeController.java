@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.employee.dto.EmpUpdateDTO;
 import com.cts.employee.dto.EmployeeDTO;
+import com.cts.employee.dto.EmployeeResponse;
 import com.cts.employee.dto.HRUpdateDTO;
 import com.cts.employee.entity.Employee;
 import com.cts.employee.service.EmployeeService;
@@ -27,14 +28,14 @@ public class EmployeeController {
 	private EmployeeService employeeService;
 	
 	@PostMapping("/save")
-	public ResponseEntity<Employee> addEmployee(@RequestBody EmployeeDTO employeeDTO){
+	public ResponseEntity<String> addEmployee(@RequestBody EmployeeDTO employeeDTO){
 		Employee employee = employeeService.addEmployee(employeeDTO);
-		return ResponseEntity.ok(employee);
+		return ResponseEntity.ok("Employee created");
 	}
 	
 	@GetMapping("/{empid}")
-	public ResponseEntity<Employee> viewEmployeeDetails(@PathVariable("empid") int id){
-		Employee emp = employeeService.viewEmployeeDetails(id);
+	public ResponseEntity<EmployeeResponse> viewEmployeeDetails(@PathVariable("empid") int id){
+		EmployeeResponse emp = employeeService.viewEmployeeDetails(id);
 		return ResponseEntity.ok(emp);
 	}
 	
@@ -51,8 +52,8 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/viewAll")
-	public ResponseEntity<List<Employee>> viewAllEmployee(){
-		List<Employee> employees = employeeService.viewAllEmployees();
+	public ResponseEntity<List<EmployeeResponse>> viewAllEmployee(){
+		List<EmployeeResponse> employees = employeeService.viewAllEmployees();
 		return ResponseEntity.ok(employees);
 	}
 	

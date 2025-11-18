@@ -41,7 +41,7 @@ public class SecurityConfig {
 		
 		http
 			.authorizeHttpRequests(request -> request
-					.requestMatchers("/auth/userLists").hasRole("HR")
+					//.requestMatchers("/auth/userLists").hasRole("HR")
 					.anyRequest().permitAll())
 			.csrf(customizer -> customizer.disable())
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

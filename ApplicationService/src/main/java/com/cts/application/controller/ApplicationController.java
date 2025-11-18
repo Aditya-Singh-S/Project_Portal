@@ -52,6 +52,13 @@ public class ApplicationController {
 		return ResponseEntity.ok(response);
 	}
 	
+	//For retrieving project specific applications
+	@GetMapping("/project/{projectid}")
+	public ResponseEntity<List<Application>> viewProjectApplications(@PathVariable("projectid") int projectid){
+		List<Application> response = applicationService.viewProjectApplication(projectid);
+		return ResponseEntity.ok(response);
+	}
+	
 	
 	//Project -> Application Workflow
 	@PostMapping

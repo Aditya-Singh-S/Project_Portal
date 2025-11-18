@@ -6,7 +6,7 @@ import com.cts.auth.entity.User;
 
 public interface AuthService {
 	
-	public String register(User user);
+	public User register(User user);
 	
 	public String login(String email, String password);
 	

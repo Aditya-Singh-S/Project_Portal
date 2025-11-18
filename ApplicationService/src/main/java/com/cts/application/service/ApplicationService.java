@@ -14,5 +14,7 @@ public interface ApplicationService {
 	
 	List<Application> viewAllApplication();
 	
-	Application viewApplication(int id);
+	List<Application> viewProjectApplication(int projectid);
+	
+	Application viewApplication(int applicationid);
 }

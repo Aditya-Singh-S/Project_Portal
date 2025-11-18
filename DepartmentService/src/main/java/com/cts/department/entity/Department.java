@@ -25,6 +25,9 @@ public class Department {
 	private String serviceline;
 	
 	@Column
-	private String verticalline;
+	private String domain;
+	
+	@Column
+	private String deptname;
 	
 }
